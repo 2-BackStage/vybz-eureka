@@ -45,11 +45,11 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/eureka-service
+            cd ~/vybz/eureka-service
             
             docker-compose pull eureka
             docker-compose up -d eureka
-#            docker image prune -f
+            docker image prune -f
 
       # 5-1. 성공 시 알림
       - name: Send Discord Success Notification
