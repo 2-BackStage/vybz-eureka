@@ -47,11 +47,12 @@ jobs:
           script: |
             cd ~/vybz/eureka-service
             
+            export EUREKA_IMAGE_TAG=${{ github.sha }}
             docker-compose down
             docker-compose rm -f
             docker-compose pull eureka
             docker-compose up -d eureka
-            docker image prune --filter "dangling=true" -f
+            docker image prune -a
 
       # 5-1. 성공 시 알림
       - name: Send Discord Success Notification
