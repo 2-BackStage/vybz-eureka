@@ -50,9 +50,13 @@ jobs:
             export EUREKA_IMAGE_TAG=${{ github.sha }}
             docker-compose down
             docker-compose rm -f
+            
+            docker images "${{ secrets.DOCKER_HUB_USERNAME }}/eureka-service" --format "{{.ID}}" | uniq | tail -n +2 | xargs -r docker rmi -f
+            
+            docker image prune -af
+            
             docker-compose pull eureka
             docker-compose up -d eureka
-            docker image prune -a
 
       # 5-1. 성공 시 알림
       - name: Send Discord Success Notification
